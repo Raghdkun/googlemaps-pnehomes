@@ -1,0 +1,104 @@
+<div class="custom-map-section">
+    <div class="custom-map-container">
+        <div class="custom-homes-list">
+            <div class="custom-home-item" data-link="#">
+                <img src="https://pnehomes.com/wp-content/uploads/2024/07/Screenshot-2024-07-24-121353.png" alt="Beulah Park" class="custom-home-image">
+                <div class="custom-home-details">
+                    <div class="custom-home-title">Beulah Park</div>
+                    <div class="custom-home-price">from $629K</div>
+                    <div class="custom-home-location">Grove City, OH</div>
+                </div>
+            </div>
+            <div class="custom-home-item" data-link="#">
+                <img src="https://pnehomes.com/wp-content/uploads/2024/07/Untitled-design-2.png" alt="Edgewater" class="custom-home-image">
+                <div class="custom-home-details">
+                    <div class="custom-home-title">Edgewater</div>
+                    <div class="custom-home-price">from $395K</div>
+                    <div class="custom-home-location">Hilliard, OH</div>
+                </div>
+            </div>
+            <div class="custom-home-item" data-link="#">
+                <img src="https://pnehomes.com/wp-content/uploads/2024/07/Screenshot-2024-07-24-121655.png" alt="Founders Ridge" class="custom-home-image">
+                <div class="custom-home-details">
+                    <div class="custom-home-title">Founders Ridge</div>
+                    <div class="custom-home-price">from $680K</div>
+                    <div class="custom-home-location">Gahanna, OH</div>
+                </div>
+            </div>
+            <div class="custom-home-item" data-link="#">
+                <img src="https://pnehomes.com/wp-content/uploads/2024/07/Screenshot-2024-07-24-121716.png" alt="Meadows at Smoky Row" class="custom-home-image">
+                <div class="custom-home-details">
+                    <div class="custom-home-title">Meadows at Smoky Row</div>
+                    <div class="custom-home-price">from $549K</div>
+                    <div class="custom-home-location">Columbus, OH</div>
+                </div>
+            </div>
+        </div>
+        <div id="custom-map"></div>
+    </div>
+</div>
+<script>
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('custom-map'), {
+            zoom: 10,
+            center: {lat: 39.9612, lng: -82.9988}  // Columbus, OH
+        });
+
+        var locations = [
+            {
+                title: 'Beulah Park',
+                position: {lat: 39.8814, lng: -83.0928},
+                details: '<div class="title">Beulah Park by PNE Builders</div><div class="details">Grove City, OH 43123<br>Price: from $629K</div>',
+                link: '#'
+            },
+            {
+                title: 'Edgewater',
+                position: {lat: 40.0331, lng: -83.1446},
+                details: '<div class="title">Edgewater by PNE Builders</div><div class="details">Hilliard, OH 43026<br>Price: from $395K</div>',
+                link: '#'
+            },
+            {
+                title: 'Founders Ridge',
+                position: {lat: 40.0197, lng: -82.8795},
+                details: '<div class="title">Founders Ridge by PNE Builders</div><div class="details">Gahanna, OH 43230<br>Price: from $680K</div>',
+                link: '#'
+            },
+            {
+                title: 'Meadows at Smoky Row',
+                position: {lat: 40.1308, lng: -83.0151},
+                details: '<div class="title">Meadows at Smoky Row by PNE Builders</div><div class="details">Columbus, OH 43235<br>Price: from $549K</div>',
+                link: '#'
+            }
+        ];
+
+        var infowindow = new google.maps.InfoWindow();
+
+        locations.forEach(function(location) {
+            var marker = new google.maps.Marker({
+                position: location.position,
+                map: map,
+                title: location.title
+            });
+
+            marker.addListener('click', function() {
+                window.location.href = location.link;
+            });
+
+            marker.addListener('mouseover', function() {
+                infowindow.setContent(location.details);
+                infowindow.open(map, marker);
+            });
+
+            marker.addListener('mouseout', function() {
+                infowindow.close();
+            });
+        });
+
+        document.querySelectorAll('.custom-home-item').forEach(function(item, index) {
+            item.addEventListener('click', function() {
+                window.location.href = locations[index].link;
+            });
+        });
+    }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
